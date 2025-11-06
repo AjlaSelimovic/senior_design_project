@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lectures - Online Language Teaching</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gradient-to-br from-slate-50 to-slate-100 min-h-screen">
+    <!-- Navbar -->
+    <nav class="bg-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo/Brand -->
+                <div class="flex items-center">
+                    <a href="index.html">
+                        <span
+                            class="text-2xl font-bold bg-gradient-to-r from-indigo-600 to-violet-600 bg-clip-text text-transparent">
+                            LinguaLearn
+                        </span>
+                    </a>
+                </div>
+
+                <!-- Navigation Links -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="index.html" class="text-gray-700 hover:text-blue-600 font-medium transition duration-200">
+                        Homepage
+                    </a>
+                    <a href="#" class="text-gray-700 hover:text-blue-600 font-medium transition duration-200">
+                        About Us
+                    </a>
+                    <a href="#" class="text-gray-700 hover:text-blue-600 font-medium transition duration-200">
+                        Profile
+                    </a>
+                    <a onclick="userService.logout()"
+                        class="bg-gradient-to-r from-indigo-600 to-violet-600 text-white px-6 py-2 rounded-full font-semibold hover:shadow-lg transform hover:scale-105 transition duration-200 hover:from-indigo-700 hover:to-violet-700 inline-block">
+                        Logout
+                    </a>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button id="mobileMenuBtn" class="text-gray-700 hover:text-blue-600 focus:outline-none">
+                        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile menu -->
+        <div id="mobileMenu" class="hidden md:hidden bg-white border-t">
+            <div class="px-4 pt-2 pb-4 space-y-2">
+                <a href="index.html"
+                    class="block text-gray-700 hover:text-blue-600 font-medium py-2 transition duration-200">
+                    Homepage
+                </a>
+                <a href="#" class="block text-gray-700 hover:text-blue-600 font-medium py-2 transition duration-200">
+                    About Us
+                </a>
+                <a href="#" class="block text-gray-700 hover:text-blue-600 font-medium py-2 transition duration-200">
+                    Profile
+                </a>
+                <a onclick="userService.logout()"
+                    class="w-full bg-gradient-to-r from-indigo-600 to-violet-600 text-white px-6 py-2 rounded-full font-semibold mt-2 hover:from-indigo-700 hover:to-violet-700 inline-block text-center">
+                    Logout
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Lecture Selection Cards -->
+        <div class="mb-8">
+            <h2 class="text-2xl font-bold text-gray-900 mb-4">Select a Lecture</h2>
+            <div id="lecturesContainer" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
+                <!-- Lectures will be dynamically loaded here -->
+            </div>
+        </div>
+
+        <!-- Lecture Content Area -->
+        <div class="grid lg:grid-cols-3 gap-8 mb-8 lg:items-stretch">
+            <!-- Video Section (Left - Takes 2 columns) -->
+            <div class="lg:col-span-2">
+                <div class="bg-white rounded-2xl shadow-xl overflow-hidden h-full">
+                    <div class="aspect-video bg-gray-900">
+                        <!-- YouTube Video Embed -->
+                        <iframe id="videoPlayer" class="w-full h-full" title="Lecture Video" frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Lecture Details Section (Right - Takes 1 column) -->
+            <div class="lg:col-span-1">
+                <div class="bg-white rounded-2xl shadow-xl p-6 h-full flex flex-col">
+                    <div class="flex-1 space-y-4">
+                        <!-- Lecture Name -->
+                        <div>
+                            <h3 class="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-1">Lecture Name
+                            </h3>
+                            <p id="lectureName" class="text-2xl font-bold text-gray-900">Introduction to Grammar</p>
+                        </div>
+
+                        <!-- Lecture Description -->
+                        <div>
+                            <h3 class="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-1">Description
+                            </h3>
+                            <p id="lectureDescription" class="text-gray-700 leading-relaxed">
+                                Learn the fundamental building blocks of the language. This lecture covers basic
+                                sentence
+                                structure, common phrases, and essential grammar rules to get you started on your
+                                learning
+                                journey.
+                            </p>
+                        </div>
+
+                        <!-- Lecture Rating (Stars) -->
+                        <div>
+                            <h3 class="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-1 mt-8">Rating
+                            </h3>
+                            <div id="lectureRating" class="flex items-center space-x-1">
+                                <!-- Stars will be rendered here dynamically -->
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Start Quiz Button -->
+                    <div class="pt-4 mt-auto">
+                        <a href="quiz.html"
+                            class="w-full bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-700 hover:to-violet-700 text-white font-bold py-4 px-6 rounded-xl shadow-lg transform hover:scale-105 transition duration-200 flex items-center justify-center space-x-2">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                            <span>Start Quiz</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Comments Section -->
+        <div class="bg-white rounded-2xl shadow-xl p-6">
+            <h2 class="text-2xl font-bold text-gray-900 mb-6">Comments</h2>
+
+            <!-- Add Comment Form -->
+            <div class="mb-6 pb-6 border-b border-gray-200">
+                <div class="flex items-center space-x-4">
+                    <div class="flex-shrink-0">
+                        <div
+                            class="w-10 h-10 rounded-full bg-gradient-to-br from-indigo-500 to-violet-600 flex items-center justify-center text-white font-bold">
+                            U
+                        </div>
+                    </div>
+                    <div class="flex-1 flex items-center space-x-3">
+                        <textarea id="commentInput"
+                            class="flex-1 px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent resize-none"
+                            rows="1" placeholder="Write a comment..."></textarea>
+                        <button onclick="addComment()"
+                            class="bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-700 hover:to-violet-700 text-white font-semibold px-6 py-3 rounded-lg transition duration-200 whitespace-nowrap">
+                            Post Comment
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Comments List -->
+            <div class="space-y-6" id="commentsList">
+                <!-- Comment 1 -->
+                <div class="flex items-start space-x-4 pb-6 border-b border-gray-200">
+                    <div class="flex-shrink-0">
+                        <div
+                            class="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-cyan-600 flex items-center justify-center text-white font-bold">
+                            JD
+                        </div>
+                    </div>
+                    <div class="flex-1">
+                        <div class="flex items-center space-x-2 mb-1">
+                            <h4 class="font-semibold text-gray-900">John Doe</h4>
+                            <span class="text-sm text-gray-500">2 hours ago</span>
+                        </div>
+                        <p class="text-gray-700 mb-2">
+                            This lecture was really helpful! The explanations were clear and easy to follow. Looking
+                            forward
+                            to the next one.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Comment 2 -->
+                <div class="flex items-start space-x-4 pb-6 border-b border-gray-200">
+                    <div class="flex-shrink-0">
+                        <div
+                            class="w-10 h-10 rounded-full bg-gradient-to-br from-pink-500 to-rose-600 flex items-center justify-center text-white font-bold">
+                            SM
+                        </div>
+                    </div>
+                    <div class="flex-1">
+                        <div class="flex items-center space-x-2 mb-1">
+                            <h4 class="font-semibold text-gray-900">Sarah Miller</h4>
+                            <span class="text-sm text-gray-500">1 day ago</span>
+                        </div>
+                        <p class="text-gray-700 mb-2">
+                            Could you add more practice exercises? I'd love to test my understanding further.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Comment 3 -->
+                <div class="flex items-start space-x-4">
+                    <div class="flex-shrink-0">
+                        <div
+                            class="w-10 h-10 rounded-full bg-gradient-to-br from-green-500 to-emerald-600 flex items-center justify-center text-white font-bold">
+                            AK
+                        </div>
+                    </div>
+                    <div class="flex-1">
+                        <div class="flex items-center space-x-2 mb-1">
+                            <h4 class="font-semibold text-gray-900">Alex Kumar</h4>
+                            <span class="text-sm text-gray-500">3 days ago</span>
+                        </div>
+                        <p class="text-gray-700 mb-2">
+                            Excellent content! The video quality is great and the pacing is perfect for beginners.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- JavaScript for interactivity -->
+    <script>
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Convert YouTube URL to embed format
+        function convertToEmbedUrl(url) {
+            if (!url) return '';
+
+            // If already in embed format, return as is
+            if (url.includes('youtube.com/embed/')) {
+                return url.startsWith('http') ? url : 'https://' + url;
+            }
+
+            // Extract video ID from various YouTube URL formats
+            let videoId = '';
+
+            // Format: youtube.com/watch?v=VIDEO_ID
+            if (url.includes('youtube.com/watch?v=')) {
+                videoId = url.split('v=')[1].split('&')[0];
+            }
+            // Format: youtu.be/VIDEO_ID
+            else if (url.includes('youtu.be/')) {
+                videoId = url.split('youtu.be/')[1].split('?')[0];
+            }
+            // Format: youtube.com/embed/VIDEO_ID (already embed)
+            else if (url.includes('youtube.com/embed/')) {
+                videoId = url.split('embed/')[1].split('?')[0];
+            }
+            // If it's just the video ID
+            else if (url.length === 11 && !url.includes('/') && !url.includes('?')) {
+                videoId = url;
+            }
+
+            if (videoId) {
+                return 'https://www.youtube.com/embed/' + videoId;
+            }
+
+            // If we can't parse it, return the original URL with https:// if needed
+            return url.startsWith('http') ? url : 'https://' + url;
+        }
+
+        // Load lecture function
+        function loadLecture(lectureIndex) {
+            if (!window.lectures || !window.lectures[lectureIndex]) return;
+
+            const lecture = window.lectures[lectureIndex];
+
+            // Update lecture details
+            document.getElementById('lectureName').textContent = lecture.name;
+            document.getElementById('lectureDescription').textContent = lecture.description;
+            document.getElementById('videoPlayer').src = convertToEmbedUrl(lecture.video_url);
+
+            // Update stars rating based on difficulty
+            const ratingElement = document.getElementById('lectureRating');
+            const starsCount = lecture.difficulty || 0;
+            ratingElement.innerHTML = renderStars(starsCount);
+
+            // Scroll to top smoothly
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Function to render stars based on rating (1-5)
+        function renderStars(rating) {
+            const maxStars = 5;
+            let starsHTML = '';
+
+            for (let i = 1; i <= maxStars; i++) {
+                if (i <= rating) {
+                    // Filled star
+                    starsHTML += `
+                        <svg class="w-6 h-6 text-yellow-400 fill-current" viewBox="0 0 20 20">
+                            <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/>
+                        </svg>
+                    `;
+                } else {
+                    // Empty star
+                    starsHTML += `
+                        <svg class="w-6 h-6 text-gray-300 fill-current" viewBox="0 0 20 20">
+                            <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/>
+                        </svg>
+                    `;
+                }
+            }
+
+            return starsHTML;
+        }
+
+        // Add comment function
+        function addComment() {
+            const commentInput = document.getElementById('commentInput');
+            const commentText = commentInput.value.trim();
+
+            if (!commentText) {
+                alert('Please enter a comment!');
+                return;
+            }
+
+            const commentsList = document.getElementById('commentsList');
+            const newComment = document.createElement('div');
+            newComment.className = 'flex items-start space-x-4 pb-6 border-b border-gray-200';
+            newComment.innerHTML = `
+                <div class="flex-shrink-0">
+                    <div class="w-10 h-10 rounded-full bg-gradient-to-br from-indigo-500 to-violet-600 flex items-center justify-center text-white font-bold">
+                        U
+                    </div>
+                </div>
+                <div class="flex-1">
+                    <div class="flex items-center space-x-2 mb-1">
+                        <h4 class="font-semibold text-gray-900">You</h4>
+                        <span class="text-sm text-gray-500">Just now</span>
+                    </div>
+                    <p class="text-gray-700 mb-2">${commentText}</p>
+                </div>
+            `;
+
+            commentsList.insertBefore(newComment, commentsList.firstChild);
+            commentInput.value = '';
+        }
+
+        // Allow Enter key to submit comment (Shift+Enter for new line)
+        document.getElementById('commentInput').addEventListener('keydown', function (e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                addComment();
+            }
+        });
+
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="../js/userService.js"></script>
+    <script src="../js/lectureService.js"></script>
+    <script>
+        userService.init();
+        lectureService.init();
+    </script>
+</body>
+
+</html>
