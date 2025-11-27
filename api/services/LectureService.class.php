@@ -9,11 +9,11 @@ class LectureService extends BaseService{
         parent::__construct(new LectureRepository());
     }
 
-    public function get_lectures_by_type($type_id){
+    public function get_lectures_by_type($type_id, $user){
         $existingType = Flight::typeRepository()->get_type_by_id($type_id);
 
         if(isset($existingType['id'])){
-            Flight::json(Flight::lectureRepository()->get_lectures_by_type($type_id));
+            Flight::json(Flight::lectureRepository()->get_lectures_by_type($type_id, $user['id']));
         }
         else {
             Flight::json(["message"=>"That type for the course doesn't exist."], 404);

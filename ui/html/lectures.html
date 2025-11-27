@@ -124,7 +124,7 @@
 
                         <!-- Lecture Rating (Stars) -->
                         <div>
-                            <h3 class="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-1 mt-8">Rating
+                            <h3 class="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-1 mt-8">Difficulty
                             </h3>
                             <div id="lectureRating" class="flex items-center space-x-1">
                                 <!-- Stars will be rendered here dynamically -->
@@ -135,13 +135,13 @@
 
                     <!-- Start Quiz Button -->
                     <div class="pt-4 mt-auto">
-                        <a href="quiz.html"
+                        <a href="#" id="startQuizBtn" onclick="startQuiz(); return false;"
                             class="w-full bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-700 hover:to-violet-700 text-white font-bold py-4 px-6 rounded-xl shadow-lg transform hover:scale-105 transition duration-200 flex items-center justify-center space-x-2">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                             </svg>
-                            <span>Start Quiz</span>
+                            <span id="startQuizText">Start Quiz</span>
                         </a>
                     </div>
                 </div>
@@ -163,11 +163,11 @@
                     </div>
                     <div class="flex-1 flex items-center space-x-3">
                         <textarea id="commentInput"
-                            class="flex-1 px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent resize-none"
+                            class="flex-1 px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent resize-none disabled:bg-gray-100 disabled:cursor-not-allowed"
                             rows="1" placeholder="Write a comment..."></textarea>
-                        <button onclick="addComment()"
-                            class="bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-700 hover:to-violet-700 text-white font-semibold px-6 py-3 rounded-lg transition duration-200 whitespace-nowrap">
-                            Post Comment
+                        <button id="postCommentBtn" onclick="addComment()"
+                            class="bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-700 hover:to-violet-700 text-white font-semibold px-6 py-3 rounded-lg transition duration-200 whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:from-indigo-600 disabled:hover:to-violet-600">
+                            Post
                         </button>
                     </div>
                 </div>
@@ -175,64 +175,8 @@
 
             <!-- Comments List -->
             <div class="space-y-6" id="commentsList">
-                <!-- Comment 1 -->
-                <div class="flex items-start space-x-4 pb-6 border-b border-gray-200">
-                    <div class="flex-shrink-0">
-                        <div
-                            class="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-cyan-600 flex items-center justify-center text-white font-bold">
-                            JD
-                        </div>
-                    </div>
-                    <div class="flex-1">
-                        <div class="flex items-center space-x-2 mb-1">
-                            <h4 class="font-semibold text-gray-900">John Doe</h4>
-                            <span class="text-sm text-gray-500">2 hours ago</span>
-                        </div>
-                        <p class="text-gray-700 mb-2">
-                            This lecture was really helpful! The explanations were clear and easy to follow. Looking
-                            forward
-                            to the next one.
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Comment 2 -->
-                <div class="flex items-start space-x-4 pb-6 border-b border-gray-200">
-                    <div class="flex-shrink-0">
-                        <div
-                            class="w-10 h-10 rounded-full bg-gradient-to-br from-pink-500 to-rose-600 flex items-center justify-center text-white font-bold">
-                            SM
-                        </div>
-                    </div>
-                    <div class="flex-1">
-                        <div class="flex items-center space-x-2 mb-1">
-                            <h4 class="font-semibold text-gray-900">Sarah Miller</h4>
-                            <span class="text-sm text-gray-500">1 day ago</span>
-                        </div>
-                        <p class="text-gray-700 mb-2">
-                            Could you add more practice exercises? I'd love to test my understanding further.
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Comment 3 -->
-                <div class="flex items-start space-x-4">
-                    <div class="flex-shrink-0">
-                        <div
-                            class="w-10 h-10 rounded-full bg-gradient-to-br from-green-500 to-emerald-600 flex items-center justify-center text-white font-bold">
-                            AK
-                        </div>
-                    </div>
-                    <div class="flex-1">
-                        <div class="flex items-center space-x-2 mb-1">
-                            <h4 class="font-semibold text-gray-900">Alex Kumar</h4>
-                            <span class="text-sm text-gray-500">3 days ago</span>
-                        </div>
-                        <p class="text-gray-700 mb-2">
-                            Excellent content! The video quality is great and the pacing is perfect for beginners.
-                        </p>
-                    </div>
-                </div>
+                <!-- Comments will be dynamically loaded here -->
+                <p class="text-center text-gray-600 py-4">Loading comments...</p>
             </div>
         </div>
     </main>
@@ -300,6 +244,14 @@
             const starsCount = lecture.difficulty || 0;
             ratingElement.innerHTML = renderStars(starsCount);
 
+            // Load comments for this lecture
+            if (lecture.id) {
+                lectureService.loadLectureComments(lecture.id);
+            }
+
+            // Update Start Quiz button based on completion status
+            updateStartQuizButton(lecture.is_completed == 1);
+
             // Scroll to top smoothly
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
@@ -333,6 +285,7 @@
         // Add comment function
         function addComment() {
             const commentInput = document.getElementById('commentInput');
+            const postButton = document.getElementById('postCommentBtn');
             const commentText = commentInput.value.trim();
 
             if (!commentText) {
@@ -340,26 +293,29 @@
                 return;
             }
 
-            const commentsList = document.getElementById('commentsList');
-            const newComment = document.createElement('div');
-            newComment.className = 'flex items-start space-x-4 pb-6 border-b border-gray-200';
-            newComment.innerHTML = `
-                <div class="flex-shrink-0">
-                    <div class="w-10 h-10 rounded-full bg-gradient-to-br from-indigo-500 to-violet-600 flex items-center justify-center text-white font-bold">
-                        U
-                    </div>
-                </div>
-                <div class="flex-1">
-                    <div class="flex items-center space-x-2 mb-1">
-                        <h4 class="font-semibold text-gray-900">You</h4>
-                        <span class="text-sm text-gray-500">Just now</span>
-                    </div>
-                    <p class="text-gray-700 mb-2">${commentText}</p>
-                </div>
-            `;
+            // Post the comment to the backend
+            lectureService.postComment(lectureService.currentLectureId, commentText)
+                .done(function (response) {
+                    // Clear the input
+                    commentInput.value = '';
 
-            commentsList.insertBefore(newComment, commentsList.firstChild);
-            commentInput.value = '';
+                    // Reload comments to show the new one
+                    lectureService.loadLectureComments(lectureService.currentLectureId);
+                })
+                .fail(function (xhr) {
+                    // Show error message
+                    const errorMsg = xhr.responseJSON && xhr.responseJSON.message
+                        ? xhr.responseJSON.message
+                        : 'Failed to post comment. Please try again.';
+                    alert(errorMsg);
+                })
+        }
+
+        // Delete comment function
+        function deleteComment(commentId) {
+            lectureService.deleteComment(commentId).done(function () {
+                lectureService.loadLectureComments(lectureService.currentLectureId);
+            });
         }
 
         // Allow Enter key to submit comment (Shift+Enter for new line)
@@ -369,6 +325,36 @@
                 addComment();
             }
         });
+
+        // Update Start Quiz button based on completion status
+        function updateStartQuizButton(isCompleted) {
+            const startQuizBtn = document.getElementById('startQuizBtn');
+            const btnText = document.getElementById('startQuizText');
+
+            if (isCompleted) {
+                // Disable the button for completed lectures
+                startQuizBtn.classList.remove('bg-gradient-to-r', 'from-indigo-600', 'to-violet-600', 'hover:from-indigo-700', 'hover:to-violet-700', 'hover:scale-105');
+                startQuizBtn.classList.add('bg-green-500', 'cursor-not-allowed', 'opacity-75');
+                startQuizBtn.onclick = function (e) { e.preventDefault(); return false; };
+                btnText.innerHTML = 'Quiz Completed';
+            } else {
+                // Enable the button for incomplete lectures
+                startQuizBtn.classList.remove('bg-green-500', 'cursor-not-allowed', 'opacity-75');
+                startQuizBtn.classList.add('bg-gradient-to-r', 'from-indigo-600', 'to-violet-600', 'hover:from-indigo-700', 'hover:to-violet-700', 'hover:scale-105');
+                startQuizBtn.onclick = function (e) { startQuiz(); return false; };
+                btnText.textContent = 'Start Quiz';
+            }
+        }
+
+        // Start quiz function
+        function startQuiz() {
+            if (lectureService.currentLectureId) {
+                var typeId = lectureService.getUrlParameter('type_id');
+                window.location.href = 'quiz.html?lecture_id=' + lectureService.currentLectureId + '&type_id=' + typeId;
+            } else {
+                alert('Please select a lecture first!');
+            }
+        }
 
     </script>
 

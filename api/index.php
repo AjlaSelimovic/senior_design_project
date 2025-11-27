@@ -15,6 +15,10 @@ require_once __DIR__.'/services/TypeService.class.php';
 require_once __DIR__.'/dao/TypeRepository.class.php';
 require_once __DIR__.'/services/LectureService.class.php';
 require_once __DIR__.'/dao/LectureRepository.class.php';
+require_once __DIR__.'/services/CommentService.class.php';
+require_once __DIR__.'/dao/CommentRepository.class.php';
+require_once __DIR__.'/services/QuizService.class.php';
+require_once __DIR__.'/dao/QuizRepository.class.php';
 
 Flight::register('userRepository','UserRepository');
 Flight::register('userService', 'UserService');
@@ -24,6 +28,10 @@ Flight::register('typeRepository','TypeRepository');
 Flight::register('typeService', 'TypeService');
 Flight::register('lectureRepository','LectureRepository');
 Flight::register('lectureService', 'LectureService');
+Flight::register('commentRepository','CommentRepository');
+Flight::register('commentService', 'CommentService');
+Flight::register('quizRepository','QuizRepository');
+Flight::register('quizService', 'QuizService');
 
 //Middleware
 Flight::route('/*', function(){
@@ -51,6 +59,8 @@ require_once __DIR__.'/presentation/UserEndpoints.php';
 require_once __DIR__.'/presentation/CourseEndpoints.php';
 require_once __DIR__.'/presentation/TypeEndpoints.php';
 require_once __DIR__.'/presentation/LectureEndpoints.php';
+require_once __DIR__.'/presentation/CommentEndpoints.php';
+require_once __DIR__.'/presentation/QuizEndpoints.php';
 
 Flight::start();
 ?>

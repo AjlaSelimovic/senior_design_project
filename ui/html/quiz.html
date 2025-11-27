@@ -82,202 +82,53 @@
                 <div class="flex items-center justify-between mb-4">
                     <h1 class="text-3xl font-bold text-gray-900">Lecture Quiz</h1>
                     <span class="text-sm font-semibold text-gray-500 bg-gray-100 px-4 py-2 rounded-full">
-                        Question <span id="currentQuestion">1</span> of <span id="totalQuestions">5</span>
+                        Question <span id="currentQuestion">-</span> of <span id="totalQuestions">-</span>
                     </span>
                 </div>
             </div>
 
             <!-- Question Container -->
             <div id="questionContainer">
-                <!-- Question 1 (Example) -->
-                <div class="question-slide" data-question="1">
-                    <div class="mb-8">
-                        <h2 class="text-2xl font-semibold text-gray-900 mb-6">
-                            What is the correct past tense form of the verb "to go"?
-                        </h2>
-
-                        <!-- Answer Options -->
-                        <div class="space-y-4">
-                            <label
-                                class="flex items-center p-4 border-2 border-gray-200 rounded-xl hover:border-indigo-300 hover:bg-indigo-50 cursor-pointer transition duration-200">
-                                <input type="radio" name="question1" value="A"
-                                    class="w-5 h-5 text-indigo-600 focus:ring-indigo-500">
-                                <span class="ml-4 text-lg text-gray-700">A. Goed</span>
-                            </label>
-
-                            <label
-                                class="flex items-center p-4 border-2 border-gray-200 rounded-xl hover:border-indigo-300 hover:bg-indigo-50 cursor-pointer transition duration-200">
-                                <input type="radio" name="question1" value="B"
-                                    class="w-5 h-5 text-indigo-600 focus:ring-indigo-500">
-                                <span class="ml-4 text-lg text-gray-700">B. Went</span>
-                            </label>
-
-                            <label
-                                class="flex items-center p-4 border-2 border-gray-200 rounded-xl hover:border-indigo-300 hover:bg-indigo-50 cursor-pointer transition duration-200">
-                                <input type="radio" name="question1" value="C"
-                                    class="w-5 h-5 text-indigo-600 focus:ring-indigo-500">
-                                <span class="ml-4 text-lg text-gray-700">C. Gone</span>
-                            </label>
-
-                            <label
-                                class="flex items-center p-4 border-2 border-gray-200 rounded-xl hover:border-indigo-300 hover:bg-indigo-50 cursor-pointer transition duration-200">
-                                <input type="radio" name="question1" value="D"
-                                    class="w-5 h-5 text-indigo-600 focus:ring-indigo-500">
-                                <span class="ml-4 text-lg text-gray-700">D. Going</span>
-                            </label>
-                        </div>
-                    </div>
-
-                    <!-- Navigation Buttons -->
-                    <div class="flex justify-between items-center mt-8 pt-6 border-t border-gray-200">
-                        <button onclick="previousQuestion()" id="prevBtn"
-                            class="px-6 py-3 bg-gray-200 text-gray-700 font-semibold rounded-lg hover:bg-gray-300 transition duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
-                            disabled>
-                            Previous
-                        </button>
-                        <button onclick="nextQuestion()" id="nextBtn"
-                            class="px-8 py-3 bg-gradient-to-r from-indigo-600 to-violet-600 text-white font-semibold rounded-lg hover:from-indigo-700 hover:to-violet-700 transition duration-200 shadow-lg hover:shadow-xl transform hover:scale-105">
-                            Next Question
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Question 2 (Example) -->
-                <div class="question-slide hidden" data-question="2">
-                    <div class="mb-8">
-                        <h2 class="text-2xl font-semibold text-gray-900 mb-6">
-                            Which word is a noun?
-                        </h2>
-
-                        <!-- Answer Options -->
-                        <div class="space-y-4">
-                            <label
-                                class="flex items-center p-4 border-2 border-gray-200 rounded-xl hover:border-indigo-300 hover:bg-indigo-50 cursor-pointer transition duration-200">
-                                <input type="radio" name="question2" value="A"
-                                    class="w-5 h-5 text-indigo-600 focus:ring-indigo-500">
-                                <span class="ml-4 text-lg text-gray-700">A. Quickly</span>
-                            </label>
-
-                            <label
-                                class="flex items-center p-4 border-2 border-gray-200 rounded-xl hover:border-indigo-300 hover:bg-indigo-50 cursor-pointer transition duration-200">
-                                <input type="radio" name="question2" value="B"
-                                    class="w-5 h-5 text-indigo-600 focus:ring-indigo-500">
-                                <span class="ml-4 text-lg text-gray-700">B. Beautiful</span>
-                            </label>
-
-                            <label
-                                class="flex items-center p-4 border-2 border-gray-200 rounded-xl hover:border-indigo-300 hover:bg-indigo-50 cursor-pointer transition duration-200">
-                                <input type="radio" name="question2" value="C"
-                                    class="w-5 h-5 text-indigo-600 focus:ring-indigo-500">
-                                <span class="ml-4 text-lg text-gray-700">C. Table</span>
-                            </label>
-
-                            <label
-                                class="flex items-center p-4 border-2 border-gray-200 rounded-xl hover:border-indigo-300 hover:bg-indigo-50 cursor-pointer transition duration-200">
-                                <input type="radio" name="question2" value="D"
-                                    class="w-5 h-5 text-indigo-600 focus:ring-indigo-500">
-                                <span class="ml-4 text-lg text-gray-700">D. Running</span>
-                            </label>
-                        </div>
-                    </div>
-
-                    <!-- Navigation Buttons -->
-                    <div class="flex justify-between items-center mt-8 pt-6 border-t border-gray-200">
-                        <button onclick="previousQuestion()" id="prevBtn2"
-                            class="px-6 py-3 bg-gray-200 text-gray-700 font-semibold rounded-lg hover:bg-gray-300 transition duration-200">
-                            Previous
-                        </button>
-                        <button onclick="nextQuestion()" id="nextBtn2"
-                            class="px-8 py-3 bg-gradient-to-r from-indigo-600 to-violet-600 text-white font-semibold rounded-lg hover:from-indigo-700 hover:to-violet-700 transition duration-200 shadow-lg hover:shadow-xl transform hover:scale-105">
-                            Next Question
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Question 3 (Example) -->
-                <div class="question-slide hidden" data-question="3">
-                    <div class="mb-8">
-                        <h2 class="text-2xl font-semibold text-gray-900 mb-6">
-                            Complete the sentence: "She ___ to the store yesterday."
-                        </h2>
-
-                        <!-- Answer Options -->
-                        <div class="space-y-4">
-                            <label
-                                class="flex items-center p-4 border-2 border-gray-200 rounded-xl hover:border-indigo-300 hover:bg-indigo-50 cursor-pointer transition duration-200">
-                                <input type="radio" name="question3" value="A"
-                                    class="w-5 h-5 text-indigo-600 focus:ring-indigo-500">
-                                <span class="ml-4 text-lg text-gray-700">A. go</span>
-                            </label>
-
-                            <label
-                                class="flex items-center p-4 border-2 border-gray-200 rounded-xl hover:border-indigo-300 hover:bg-indigo-50 cursor-pointer transition duration-200">
-                                <input type="radio" name="question3" value="B"
-                                    class="w-5 h-5 text-indigo-600 focus:ring-indigo-500">
-                                <span class="ml-4 text-lg text-gray-700">B. goes</span>
-                            </label>
-
-                            <label
-                                class="flex items-center p-4 border-2 border-gray-200 rounded-xl hover:border-indigo-300 hover:bg-indigo-50 cursor-pointer transition duration-200">
-                                <input type="radio" name="question3" value="C"
-                                    class="w-5 h-5 text-indigo-600 focus:ring-indigo-500">
-                                <span class="ml-4 text-lg text-gray-700">C. went</span>
-                            </label>
-
-                            <label
-                                class="flex items-center p-4 border-2 border-gray-200 rounded-xl hover:border-indigo-300 hover:bg-indigo-50 cursor-pointer transition duration-200">
-                                <input type="radio" name="question3" value="D"
-                                    class="w-5 h-5 text-indigo-600 focus:ring-indigo-500">
-                                <span class="ml-4 text-lg text-gray-700">D. going</span>
-                            </label>
-                        </div>
-                    </div>
-
-                    <!-- Navigation Buttons -->
-                    <div class="flex justify-between items-center mt-8 pt-6 border-t border-gray-200">
-                        <button onclick="previousQuestion()" id="prevBtn3"
-                            class="px-6 py-3 bg-gray-200 text-gray-700 font-semibold rounded-lg hover:bg-gray-300 transition duration-200">
-                            Previous
-                        </button>
-                        <button onclick="submitQuiz()" id="submitBtn"
-                            class="px-8 py-3 bg-gradient-to-r from-green-600 to-emerald-600 text-white font-semibold rounded-lg hover:from-green-700 hover:to-emerald-700 transition duration-200 shadow-lg hover:shadow-xl transform hover:scale-105">
-                            Submit Quiz
-                        </button>
-                    </div>
-                </div>
+                <!-- Questions will be dynamically loaded here -->
             </div>
         </div>
 
         <!-- Results Container (Hidden Initially) -->
         <div id="resultsContainer" class="bg-white rounded-2xl shadow-xl p-8 hidden">
             <div class="text-center mb-8">
-                <!-- Success Icon -->
-                <div
+                <!-- Icon -->
+                <div id="resultIcon"
                     class="mx-auto w-20 h-20 bg-gradient-to-br from-green-500 to-emerald-600 rounded-full flex items-center justify-center mb-6">
-                    <svg class="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg id="successIcon" class="w-12 h-12 text-white" fill="none" stroke="currentColor"
+                        viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
+                    <svg id="failIcon" class="w-12 h-12 text-white hidden" fill="none" stroke="currentColor"
+                        viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
                 </div>
 
-                <h1 class="text-4xl font-bold text-gray-900 mb-2">Quiz Complete!</h1>
+                <h1 id="resultTitle" class="text-4xl font-bold text-gray-900 mb-2">Quiz Complete!</h1>
                 <p class="text-xl text-gray-600 mb-8">Here are your results</p>
 
                 <!-- Score Display -->
                 <div class="bg-gradient-to-br from-indigo-50 to-violet-50 rounded-2xl p-8 mb-8">
                     <div
                         class="text-6xl font-bold bg-gradient-to-r from-indigo-600 to-violet-600 bg-clip-text text-transparent mb-2">
-                        <span id="scoreDisplay">2/3</span>
+                        <span id="scoreDisplay">-/-</span>
                     </div>
                     <p class="text-2xl text-gray-700 font-semibold">
-                        <span id="percentageDisplay">67%</span> Correct
+                        <span id="percentageDisplay">-%</span> Correct
                     </p>
                 </div>
             </div>
 
             <!-- Back to Lecture Button -->
             <div class="text-center">
-                <a href="lectures.html"
+                <a href="lectures.html" id="backToLectureBtn"
                     class="inline-flex items-center px-8 py-4 bg-gradient-to-r from-indigo-600 to-violet-600 text-white font-bold rounded-xl hover:from-indigo-700 hover:to-violet-700 transition duration-200 shadow-lg hover:shadow-xl transform hover:scale-105">
                     <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -299,56 +150,14 @@
             mobileMenu.classList.toggle('hidden');
         });
 
-        // Quiz navigation variables
-        let currentQuestionIndex = 1;
-        const totalQuestions = 3; // Update this based on your actual number of questions
-
-        // Show specific question
-        function showQuestion(questionNumber) {
-            const slides = document.querySelectorAll('.question-slide');
-            slides.forEach(slide => {
-                if (parseInt(slide.dataset.question) === questionNumber) {
-                    slide.classList.remove('hidden');
-                } else {
-                    slide.classList.add('hidden');
-                }
-            });
-            currentQuestionIndex = questionNumber;
-            document.getElementById('currentQuestion').textContent = currentQuestionIndex;
-        }
-
-        // Next question
-        function nextQuestion() {
-            if (currentQuestionIndex < totalQuestions) {
-                showQuestion(currentQuestionIndex + 1);
-            }
-        }
-
-        // Previous question
-        function previousQuestion() {
-            if (currentQuestionIndex > 1) {
-                showQuestion(currentQuestionIndex - 1);
-            }
-        }
-
-        // Submit quiz and show results
-        function submitQuiz() {
-            // Hide quiz container
-            document.getElementById('quizContainer').classList.add('hidden');
-            // Show results container
-            document.getElementById('resultsContainer').classList.remove('hidden');
-            // Scroll to top
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        // Initialize
-        document.getElementById('totalQuestions').textContent = totalQuestions;
     </script>
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="../js/userService.js"></script>
+    <script src="../js/quizService.js"></script>
     <script>
         userService.init();
+        quizService.init();
     </script>
 </body>
 
