@@ -19,5 +19,33 @@ class LectureService extends BaseService{
             Flight::json(["message"=>"That type for the course doesn't exist."], 404);
         }
     }
+
+    public function create_lecture($data){
+        Flight::json(parent::add_element($data)); 
+    }
+
+    public function delete_lecture($lecture_id){
+        $existingLecture = Flight::lectureRepository()->get_lecture_by_id($lecture_id);
+
+        if(isset($existingLecture['id'])){
+            parent::delete_element($lecture_id);
+            Flight::json(["message"=>"Successfully deleted!"], 200);
+        }
+        else {
+            Flight::json(["message"=>"That lecture doesn't exist."], 404);
+        }
+    }
+
+    public function update_lecture($data, $lecture_id){
+        $existingLecture = Flight::lectureRepository()->get_lecture_by_id($lecture_id);
+
+        if(isset($existingLecture['id'])){
+            parent::update_element($lecture_id, $data);
+            Flight::json(["message"=>"Successfully updated!"], 200);
+        }
+        else {
+            Flight::json(["message"=>"That lecture doesn't exist."], 404);
+        }
+    }
 }
 ?>

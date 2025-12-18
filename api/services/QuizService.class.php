@@ -66,5 +66,76 @@ class QuizService extends BaseService{
             Flight::json(["message"=>"That quiz doesn't exist."], 404);
         }
     }
+
+    public function create_quiz($data) {
+        $quiz = [
+            "name" => $data["name"],
+            "lecture_id" => $data["lecture_id"]
+        ];
+
+        $created_quiz = $this->repository->insert_quiz($quiz);
+
+        foreach ($data["questions"] as $question) {
+            $created_question = $this->repository->insert_question([
+                "content" => $question["content"],
+                "quiz_id" => $created_quiz["id"]
+            ]);
+
+            foreach ($question["answers"] as $answer) {
+                $this->repository->insert_answer([
+                    "content" => $answer["content"],
+                    "is_correct" => $answer["is_correct"],
+                    "question_id" => $created_question["id"]
+                ]);
+            }
+        }
+        return Flight::json([
+            "message" => "Quiz created",
+            "quiz_id" => $created_quiz["id"]
+        ]);
+    }
+
+    public function delete_quiz($quiz_id){
+        $existingQuiz = Flight::quizRepository()->get_quiz_by_id($quiz_id);
+
+        if(isset($existingQuiz['id'])){
+            parent::delete_element($quiz_id);
+            Flight::json(["message"=>"Successfully deleted!"], 200);
+        }
+        else {
+            Flight::json(["message"=>"That quiz doesn't exist."], 404);
+        }
+    }
+
+    public function update_quiz($quiz_id, $quiz_data) {
+        $quiz = [
+            "name" => $quiz_data["name"],
+            "lecture_id" => $quiz_data["lecture_id"]
+        ];
+
+        $this->repository->update_quiz($quiz_id, $quiz);
+        $this->repository->delete_questions_by_quiz($quiz_id);
+
+        foreach ($quiz_data["questions"] as $question) {
+
+            $created_question = $this->repository->insert_question([
+                "content" => $question["content"],
+                "quiz_id" => $quiz_id
+            ]);
+
+            foreach ($question["answers"] as $answer) {
+                $this->repository->insert_answer([
+                    "content" => $answer["content"],
+                    "is_correct" => $answer["is_correct"],
+                    "question_id" => $created_question["id"]
+                ]);
+            }
+        }
+
+        return Flight::json([
+            "message" => "Quiz updated",
+            "quiz_id" => $quiz_id
+        ]);
+    }
 }
 ?>

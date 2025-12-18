@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Learn English - Online Language Teaching</title>
+    <title>Users Management - Online Language Teaching</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
@@ -37,7 +37,7 @@
                         Profile
                     </a>
                     <a onclick="userService.logout()"
-                        class="bg-gradient-to-r from-indigo-600 to-violet-600 text-white px-6 py-2 rounded-full font-semibold hover:shadow-lg transform hover:scale-105 transition duration-200 hover:from-indigo-700 hover:to-violet-700 inline-block">
+                        class="bg-gradient-to-r from-indigo-600 to-violet-600 text-white px-6 py-2 rounded-full font-semibold hover:shadow-lg transform hover:scale-105 transition duration-200 hover:from-indigo-700 hover:to-violet-700 inline-block cursor-pointer">
                         Logout
                     </a>
                 </div>
@@ -70,7 +70,7 @@
                     Profile
                 </a>
                 <a onclick="userService.logout()"
-                    class="w-full bg-gradient-to-r from-indigo-600 to-violet-600 text-white px-6 py-2 rounded-full font-semibold mt-2 hover:from-indigo-700 hover:to-violet-700 inline-block text-center">
+                    class="w-full bg-gradient-to-r from-indigo-600 to-violet-600 text-white px-6 py-2 rounded-full font-semibold mt-2 hover:from-indigo-700 hover:to-violet-700 inline-block text-center cursor-pointer">
                     Logout
                 </a>
             </div>
@@ -80,18 +80,46 @@
     <!-- Main Content -->
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <!-- Hero Section -->
-        <div class="text-center mb-16">
+        <div class="text-center mb-12">
             <h1 class="text-5xl md:text-6xl font-bold text-gray-900 mb-4">
-                Start Learning
+                Users Management
             </h1>
             <p class="text-xl text-gray-600 max-w-2xl mx-auto">
-                Choose your learning path and master the language step by step
+                Manage users, roles and permissions
             </p>
         </div>
 
-        <!-- Type Cards -->
-        <div id="typesContainer" class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-            <!-- Types will be dynamically loaded here -->
+        <!-- Users Table -->
+        <div class="bg-white rounded-2xl shadow-xl overflow-hidden">
+            <div class="overflow-x-auto">
+                <table class="w-full">
+                    <thead class="bg-gradient-to-r from-indigo-600 to-violet-600">
+                        <tr>
+                            <th class="px-6 py-4 text-left text-sm font-semibold text-white uppercase tracking-wider">
+                                First Name
+                            </th>
+                            <th class="px-6 py-4 text-left text-sm font-semibold text-white uppercase tracking-wider">
+                                Last Name
+                            </th>
+                            <th class="px-6 py-4 text-left text-sm font-semibold text-white uppercase tracking-wider">
+                                Email
+                            </th>
+                            <th class="px-6 py-4 text-left text-sm font-semibold text-white uppercase tracking-wider">
+                                Date of Birth
+                            </th>
+                            <th class="px-6 py-4 text-left text-sm font-semibold text-white uppercase tracking-wider">
+                                Role
+                            </th>
+                            <th class="px-6 py-4 text-center text-sm font-semibold text-white uppercase tracking-wider">
+                                Actions
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody id="usersTableBody" class="bg-white divide-y divide-gray-200">
+                        <!-- Users will be dynamically loaded here -->
+                    </tbody>
+                </table>
+            </div>
         </div>
     </main>
 
@@ -108,10 +136,10 @@
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="../js/userService.js"></script>
-    <script src="../js/typesService.js"></script>
+    <script src="../js/usersTableService.js"></script>
     <script>
         userService.init();
-        typesService.init();
+        usersTableService.init();
     </script>
 </body>
 

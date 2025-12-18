@@ -3,7 +3,7 @@ require_once __DIR__.'/../Config.class.php';
 
 class BaseRepository{
 
-    private $conn;
+    protected $conn;
     private $table_name;
 
     public function __construct($table_name){

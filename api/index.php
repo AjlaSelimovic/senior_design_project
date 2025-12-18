@@ -19,6 +19,7 @@ require_once __DIR__.'/services/CommentService.class.php';
 require_once __DIR__.'/dao/CommentRepository.class.php';
 require_once __DIR__.'/services/QuizService.class.php';
 require_once __DIR__.'/dao/QuizRepository.class.php';
+require_once __DIR__.'/dao/RoleRepository.class.php';
 
 Flight::register('userRepository','UserRepository');
 Flight::register('userService', 'UserService');
@@ -32,6 +33,7 @@ Flight::register('commentRepository','CommentRepository');
 Flight::register('commentService', 'CommentService');
 Flight::register('quizRepository','QuizRepository');
 Flight::register('quizService', 'QuizService');
+Flight::register('roleRepository','RoleRepository');
 
 //Middleware
 Flight::route('/*', function(){
@@ -46,6 +48,12 @@ Flight::route('/*', function(){
     }else{
         try {
             $decoded = (array)JWT::decode($headers['Authorization'], new Key(Config::JWT_SECRET(), 'HS256'));
+            if (strpos($path, '/admin') === 0) {
+                if ($decoded['role_name'] != 'Admin' && $decoded['role_name'] != 'Head Admin') {
+                    Flight::json(["message" => "Admin access only"], 403);
+                    return FALSE;
+                }
+            }
             Flight::set('validUser', $decoded);
             return TRUE;
         } catch (\Exception $e) {

@@ -1,4 +1,36 @@
 var userService = {
+    parseToken: function () {
+        var token = localStorage.getItem("token");
+        if (!token) {
+            return null;
+        }
+
+        try {
+            var base64Url = token.split('.')[1];
+            var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+            var jsonPayload = decodeURIComponent(atob(base64).split('').map(function (c) {
+                return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+            }).join(''));
+
+            var payload = JSON.parse(jsonPayload);
+            return payload;
+        } catch (error) {
+            console.error('Error parsing token:', error);
+            return null;
+        }
+    },
+
+    hideAdminPanelForUsers: function () {
+        var tokenData = this.parseToken();
+        if (tokenData && tokenData.role_name === 'User') {
+            // Hide admin panel link in desktop navigation
+            var adminLinks = document.querySelectorAll('a[href="admin-panel.html"]');
+            adminLinks.forEach(function (link) {
+                link.style.display = 'none';
+            });
+        }
+    },
+
     init: function () {
         var token = localStorage.getItem("token");
         var currentPage = window.location.pathname.split("/").pop();
@@ -12,6 +44,9 @@ var userService = {
                 window.location.replace("index.html");
             }
         }
+
+        this.hideAdminPanelForUsers();
+
     },
 
     login: function () {

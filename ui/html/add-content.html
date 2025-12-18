@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Content - Online Language Teaching</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gradient-to-br from-slate-50 to-slate-100 min-h-screen">
+    <!-- Navbar -->
+    <nav class="bg-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo/Brand -->
+                <div class="flex items-center">
+                    <a href="index.html">
+                        <span
+                            class="text-2xl font-bold bg-gradient-to-r from-indigo-600 to-violet-600 bg-clip-text text-transparent">
+                            Bee Speaker
+                        </span>
+                    </a>
+                </div>
+
+                <!-- Navigation Links -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="index.html" class="text-gray-700 hover:text-blue-600 font-medium transition duration-200">
+                        Homepage
+                    </a>
+                    <a href="admin-panel.html"
+                        class="text-gray-700 hover:text-blue-600 font-medium transition duration-200">
+                        Admin Panel
+                    </a>
+                    <a href="profile.html"
+                        class="text-gray-700 hover:text-blue-600 font-medium transition duration-200">
+                        Profile
+                    </a>
+                    <a onclick="userService.logout()"
+                        class="bg-gradient-to-r from-indigo-600 to-violet-600 text-white px-6 py-2 rounded-full font-semibold hover:shadow-lg transform hover:scale-105 transition duration-200 hover:from-indigo-700 hover:to-violet-700 inline-block cursor-pointer">
+                        Logout
+                    </a>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button id="mobileMenuBtn" class="text-gray-700 hover:text-blue-600 focus:outline-none">
+                        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile menu -->
+        <div id="mobileMenu" class="hidden md:hidden bg-white border-t">
+            <div class="px-4 pt-2 pb-4 space-y-2">
+                <a href="index.html"
+                    class="block text-gray-700 hover:text-blue-600 font-medium py-2 transition duration-200">
+                    Homepage
+                </a>
+                <a href="admin-panel.html"
+                    class="block text-gray-700 hover:text-blue-600 font-medium py-2 transition duration-200">
+                    Admin Panel
+                </a>
+                <a href="profile.html"
+                    class="block text-gray-700 hover:text-blue-600 font-medium py-2 transition duration-200">
+                    Profile
+                </a>
+                <a onclick="userService.logout()"
+                    class="w-full bg-gradient-to-r from-indigo-600 to-violet-600 text-white px-6 py-2 rounded-full font-semibold mt-2 hover:from-indigo-700 hover:to-violet-700 inline-block text-center cursor-pointer">
+                    Logout
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <!-- Hero Section -->
+        <div class="mb-8">
+            <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-2">
+                <span id="pageTitle">Add New Content</span>
+            </h1>
+            <p class="text-lg text-gray-600">
+                Fill in the details below
+            </p>
+        </div>
+
+        <!-- Content Management -->
+        <div class="bg-white rounded-2xl shadow-xl p-8">
+            <!-- Course Name -->
+            <div class="mb-6">
+                <label class="block text-sm font-semibold text-gray-900 mb-2">Course Name</label>
+                <div class="flex gap-3">
+                    <select id="courseName"
+                        class="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-600 focus:border-transparent">
+                        <option value="">Select a course</option>
+                    </select>
+                    <button type="button" onclick="addContentService.openCourseModal()"
+                        class="bg-gradient-to-r from-indigo-600 to-violet-600 text-white px-6 py-3 rounded-lg font-semibold hover:shadow-lg transform hover:scale-105 transition duration-200 hover:from-indigo-700 hover:to-violet-700">
+                        Add New
+                    </button>
+                    <button type="button" onclick="addContentService.openEditCourseModal()"
+                        class="bg-gradient-to-r from-yellow-500 to-yellow-600 text-white px-6 py-3 rounded-lg font-semibold hover:shadow-lg transform hover:scale-105 transition duration-200 hover:from-yellow-600 hover:to-yellow-700">
+                        Edit
+                    </button>
+                    <button type="button" onclick="addContentService.deleteCourse()"
+                        class="bg-gradient-to-r from-red-500 to-red-600 text-white px-6 py-3 rounded-lg font-semibold hover:shadow-lg transform hover:scale-105 transition duration-200 hover:from-red-600 hover:to-red-700">
+                        Delete
+                    </button>
+                </div>
+            </div>
+
+            <!-- Course Type -->
+            <div class="mb-6">
+                <label class="block text-sm font-semibold text-gray-900 mb-2">Course Type</label>
+                <div class="flex gap-3">
+                    <select id="courseType"
+                        class="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-600 focus:border-transparent">
+                        <option value="">Select a type</option>
+                    </select>
+                    <button type="button" onclick="addContentService.openTypeModal()"
+                        class="bg-gradient-to-r from-indigo-600 to-violet-600 text-white px-6 py-3 rounded-lg font-semibold hover:shadow-lg transform hover:scale-105 transition duration-200 hover:from-indigo-700 hover:to-violet-700">
+                        Add New
+                    </button>
+                    <button type="button" onclick="addContentService.openEditTypeModal()"
+                        class="bg-gradient-to-r from-yellow-500 to-yellow-600 text-white px-6 py-3 rounded-lg font-semibold hover:shadow-lg transform hover:scale-105 transition duration-200 hover:from-yellow-600 hover:to-yellow-700">
+                        Edit
+                    </button>
+                    <button type="button" onclick="addContentService.deleteType()"
+                        class="bg-gradient-to-r from-red-500 to-red-600 text-white px-6 py-3 rounded-lg font-semibold hover:shadow-lg transform hover:scale-105 transition duration-200 hover:from-red-600 hover:to-red-700">
+                        Delete
+                    </button>
+                </div>
+            </div>
+
+
+            <!-- Lecture Name -->
+            <div class="mb-6">
+                <label for="lectureName" class="block text-sm font-semibold text-gray-900 mb-2">Lecture
+                    Name</label>
+                <div class="flex gap-3">
+                    <select id="lectureName"
+                        class="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-600 focus:border-transparent">
+                        <option value="">Select a lecture</option>
+                    </select>
+                    <button type="button" onclick="addContentService.openLectureModal()"
+                        class="bg-gradient-to-r from-indigo-600 to-violet-600 text-white px-6 py-3 rounded-lg font-semibold hover:shadow-lg transform hover:scale-105 transition duration-200 hover:from-indigo-700 hover:to-violet-700">
+                        Add New
+                    </button>
+                    <button type="button" onclick="addContentService.openEditLectureModal()"
+                        class="bg-gradient-to-r from-yellow-500 to-yellow-600 text-white px-6 py-3 rounded-lg font-semibold hover:shadow-lg transform hover:scale-105 transition duration-200 hover:from-yellow-600 hover:to-yellow-700">
+                        Edit
+                    </button>
+                    <button type="button" onclick="addContentService.deleteLecture()"
+                        class="bg-gradient-to-r from-red-500 to-red-600 text-white px-6 py-3 rounded-lg font-semibold hover:shadow-lg transform hover:scale-105 transition duration-200 hover:from-red-600 hover:to-red-700">
+                        Delete
+                    </button>
+                </div>
+            </div>
+
+            <!-- Quiz Name -->
+            <div class="mb-8">
+                <label for="quizName" class="block text-sm font-semibold text-gray-900 mb-2">Quiz
+                    Name</label>
+                <div class="flex gap-3">
+                    <select id="quizName"
+                        class="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-600 focus:border-transparent">
+                        <option value="">Select a quiz</option>
+                    </select>
+                    <button type="button" onclick="addContentService.openQuizModal()"
+                        class="bg-gradient-to-r from-indigo-600 to-violet-600 text-white px-6 py-3 rounded-lg font-semibold hover:shadow-lg transform hover:scale-105 transition duration-200 hover:from-indigo-700 hover:to-violet-700">
+                        Add New
+                    </button>
+                    <button type="button" onclick="addContentService.openEditQuizModal()"
+                        class="bg-gradient-to-r from-yellow-500 to-yellow-600 text-white px-6 py-3 rounded-lg font-semibold hover:shadow-lg transform hover:scale-105 transition duration-200 hover:from-yellow-600 hover:to-yellow-700">
+                        Edit
+                    </button>
+                    <button type="button" onclick="addContentService.deleteQuiz()"
+                        class="bg-gradient-to-r from-red-500 to-red-600 text-white px-6 py-3 rounded-lg font-semibold hover:shadow-lg transform hover:scale-105 transition duration-200 hover:from-red-600 hover:to-red-700">
+                        Delete
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Add Course Modal -->
+    <div id="courseModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <div class="bg-white rounded-2xl shadow-xl p-8 max-w-md w-full mx-4">
+            <h2 class="text-2xl font-bold text-gray-900 mb-4">Add New Course</h2>
+            <div class="mb-6">
+                <label for="newCourseName" class="block text-sm font-semibold text-gray-900 my-3">Course Name</label>
+                <input type="text" id="newCourseName"
+                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-600 focus:border-transparent"
+                    placeholder="Enter new course name">
+                <label for="newAbbreviation" class="block text-sm font-semibold text-gray-900 my-3">Abbreviation</label>
+                <input type="text" id="newAbbreviation"
+                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-600 focus:border-transparent"
+                    placeholder="Enter abbreviation">
+                <label for="newDescription" class="block text-sm font-semibold text-gray-900 my-3">Description</label>
+                <input type="text" id="newDescription"
+                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-600 focus:border-transparent"
+                    placeholder="Enter description">
+            </div>
+            <div class="flex gap-4 justify-end">
+                <button type="button" onclick="addContentService.closeCourseModal()"
+                    class="px-6 py-3 border border-gray-300 rounded-lg font-semibold text-gray-700 hover:bg-gray-50 transition duration-200">
+                    Cancel
+                </button>
+                <button type="button" onclick="addContentService.saveNewCourse()"
+                    class="bg-gradient-to-r from-green-500 to-green-600 text-white px-6 py-3 rounded-lg font-semibold hover:shadow-lg transform hover:scale-105 transition duration-200 hover:from-green-600 hover:to-green-700">
+                    Save
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Course Modal -->
+    <div id="editCourseModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <div class="bg-white rounded-2xl shadow-xl p-8 max-w-md w-full mx-4">
+            <h2 class="text-2xl font-bold text-gray-900 mb-4">Edit Course</h2>
+            <div class="mb-6">
+                <label for="editCourseName" class="block text-sm font-semibold text-gray-900 my-3">Course Name</label>
+                <input type="text" id="editCourseName"
+                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-600 focus:border-transparent"
+                    placeholder="Enter course name">
+                <label for="editAbbreviation"
+                    class="block text-sm font-semibold text-gray-900 my-3">Abbreviation</label>
+                <input type="text" id="editAbbreviation"
+                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-600 focus:border-transparent"
+                    placeholder="Enter abbreviation">
+                <label for="editDescription" class="block text-sm font-semibold text-gray-900 my-3">Description</label>
+                <input type="text" id="editDescription"
+                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-600 focus:border-transparent"
+                    placeholder="Enter description">
+            </div>
+            <div class="flex gap-4 justify-end">
+                <button type="button" onclick="addContentService.closeEditCourseModal()"
+                    class="px-6 py-3 border border-gray-300 rounded-lg font-semibold text-gray-700 hover:bg-gray-50 transition duration-200">
+                    Cancel
+                </button>
+                <button type="button" onclick="addContentService.updateCourse()"
+                    class="bg-gradient-to-r from-green-500 to-green-600 text-white px-6 py-3 rounded-lg font-semibold hover:shadow-lg transform hover:scale-105 transition duration-200 hover:from-green-600 hover:to-green-700">
+                    Save
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Type Modal -->
+    <div id="typeModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <div class="bg-white rounded-2xl shadow-xl p-8 max-w-md w-full mx-4">
+            <h2 class="text-2xl font-bold text-gray-900 mb-4">Add New Type</h2>
+            <div class="mb-6">
+                <label for="newTypeName" class="block text-sm font-semibold text-gray-900 my-3">Type Name</label>
+                <input type="text" id="newTypeName"
+                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-600 focus:border-transparent"
+                    placeholder="Enter type name">
+                <label for="newTypeDescription"
+                    class="block text-sm font-semibold text-gray-900 my-3">Description</label>
+                <input type="text" id="newTypeDescription"
+                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-600 focus:border-transparent"
+                    placeholder="Enter description">
+                <label for="newTypeCourse" class="block text-sm font-semibold text-gray-900 my-3">Course</label>
+                <select id="newTypeCourse"
+                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-600 focus:border-transparent">
+                    <option value="">Select a course</option>
+                </select>
+            </div>
+            <div class="flex gap-4 justify-end">
+                <button type="button" onclick="addContentService.closeTypeModal()"
+                    class="px-6 py-3 border border-gray-300 rounded-lg font-semibold text-gray-700 hover:bg-gray-50 transition duration-200">
+                    Cancel
+                </button>
+                <button type="button" onclick="addContentService.saveNewType()"
+                    class="bg-gradient-to-r from-green-500 to-green-600 text-white px-6 py-3 rounded-lg font-semibold hover:shadow-lg transform hover:scale-105 transition duration-200 hover:from-green-600 hover:to-green-700">
+                    Save
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Type Modal -->
+    <div id="editTypeModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <div class="bg-white rounded-2xl shadow-xl p-8 max-w-md w-full mx-4">
+            <h2 class="text-2xl font-bold text-gray-900 mb-4">Edit Type</h2>
+            <div class="mb-6">
+                <label for="editTypeName" class="block text-sm font-semibold text-gray-900 my-3">Type Name</label>
+                <input type="text" id="editTypeName"
+                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-600 focus:border-transparent"
+                    placeholder="Enter type name">
+                <label for="editTypeDescription"
+                    class="block text-sm font-semibold text-gray-900 my-3">Description</label>
+                <input type="text" id="editTypeDescription"
+                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-600 focus:border-transparent"
+                    placeholder="Enter description">
+                <label for="editTypeCourse" class="block text-sm font-semibold text-gray-900 my-3">Course</label>
+                <select id="editTypeCourse"
+                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-600 focus:border-transparent">
+                    <option value="">Select a course</option>
+                </select>
+            </div>
+            <div class="flex gap-4 justify-end">
+                <button type="button" onclick="addContentService.closeEditTypeModal()"
+                    class="px-6 py-3 border border-gray-300 rounded-lg font-semibold text-gray-700 hover:bg-gray-50 transition duration-200">
+                    Cancel
+                </button>
+                <button type="button" onclick="addContentService.updateType()"
+                    class="bg-gradient-to-r from-green-500 to-green-600 text-white px-6 py-3 rounded-lg font-semibold hover:shadow-lg transform hover:scale-105 transition duration-200 hover:from-green-600 hover:to-green-700">
+                    Save
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Lecture Modal -->
+    <div id="lectureModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <div class="bg-white rounded-2xl shadow-xl p-8 max-w-md w-full mx-4">
+            <h2 class="text-2xl font-bold text-gray-900 mb-4">Add New Lecture</h2>
+            <div class="mb-6">
+                <label for="modalLectureName" class="block text-sm font-semibold text-gray-900 my-3">Lecture
+                    Name</label>
+                <input type="text" id="modalLectureName"
+                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-600 focus:border-transparent"
+                    placeholder="Enter lecture name">
+                <label for="modalLectureDescription" class="block text-sm font-semibold text-gray-900 my-3">Lecture
+                    Description</label>
+                <input type="text" id="modalLectureDescription"
+                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-600 focus:border-transparent"
+                    placeholder="Enter lecture description">
+                <label for="modalDifficulty" class="block text-sm font-semibold text-gray-900 my-3">Difficulty</label>
+                <select id="modalDifficulty"
+                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-600 focus:border-transparent">
+                    <option value="">Select difficulty</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
+                <label for="modalVideoUrl" class="block text-sm font-semibold text-gray-900 my-3">Video URL</label>
+                <input type="url" id="modalVideoUrl"
+                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-600 focus:border-transparent"
+                    placeholder="Enter YouTube URL">
+            </div>
+            <div class="flex gap-4 justify-end">
+                <button type="button" onclick="addContentService.closeLectureModal()"
+                    class="px-6 py-3 border border-gray-300 rounded-lg font-semibold text-gray-700 hover:bg-gray-50 transition duration-200">
+                    Cancel
+                </button>
+                <button type="button" onclick="addContentService.saveNewLecture()"
+                    class="bg-gradient-to-r from-green-500 to-green-600 text-white px-6 py-3 rounded-lg font-semibold hover:shadow-lg transform hover:scale-105 transition duration-200 hover:from-green-600 hover:to-green-700">
+                    Save
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Lecture Modal -->
+    <div id="editLectureModal"
+        class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <div class="bg-white rounded-2xl shadow-xl p-8 max-w-md w-full mx-4">
+            <h2 class="text-2xl font-bold text-gray-900 mb-4">Edit Lecture</h2>
+            <div class="mb-6">
+                <label for="editLectureName" class="block text-sm font-semibold text-gray-900 my-3">Lecture
+                    Name</label>
+                <input type="text" id="editLectureName"
+                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-600 focus:border-transparent"
+                    placeholder="Enter lecture name">
+                <label for="editLectureDescription" class="block text-sm font-semibold text-gray-900 my-3">Lecture
+                    Description</label>
+                <input type="text" id="editLectureDescription"
+                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-600 focus:border-transparent"
+                    placeholder="Enter lecture description">
+                <label for="editDifficulty" class="block text-sm font-semibold text-gray-900 my-3">Difficulty</label>
+                <select id="editDifficulty"
+                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-600 focus:border-transparent">
+                    <option value="">Select difficulty</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
+                <label for="editVideoUrl" class="block text-sm font-semibold text-gray-900 my-3">Video URL</label>
+                <input type="url" id="editVideoUrl"
+                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-600 focus:border-transparent"
+                    placeholder="Enter YouTube URL">
+            </div>
+            <div class="flex gap-4 justify-end">
+                <button type="button" onclick="addContentService.closeEditLectureModal()"
+                    class="px-6 py-3 border border-gray-300 rounded-lg font-semibold text-gray-700 hover:bg-gray-50 transition duration-200">
+                    Cancel
+                </button>
+                <button type="button" onclick="addContentService.updateLecture()"
+                    class="bg-gradient-to-r from-green-500 to-green-600 text-white px-6 py-3 rounded-lg font-semibold hover:shadow-lg transform hover:scale-105 transition duration-200 hover:from-green-600 hover:to-green-700">
+                    Save
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Quiz Modal -->
+    <div id="quizModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <div class="bg-white rounded-2xl shadow-xl p-8 max-w-2xl w-full mx-4 max-h-[90vh] overflow-y-auto">
+            <h2 class="text-2xl font-bold text-gray-900 mb-4">Add New Quiz</h2>
+            <div class="mb-6">
+                <label for="modalQuizName" class="block text-sm font-semibold text-gray-900 my-3">Quiz Name</label>
+                <input type="text" id="modalQuizName"
+                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-600 focus:border-transparent"
+                    placeholder="Enter quiz name">
+
+                <div id="questionsContainer"></div>
+
+                <button type="button" onclick="addContentService.addQuestion()"
+                    class="mt-4 w-full bg-gradient-to-r from-blue-500 to-purple-600 text-white px-4 py-2 rounded-lg font-semibold hover:shadow-lg transition duration-200">
+                    + Add New Question
+                </button>
+            </div>
+            <div class="flex gap-4 justify-end">
+                <button type="button" onclick="addContentService.closeQuizModal()"
+                    class="px-6 py-3 border border-gray-300 rounded-lg font-semibold text-gray-700 hover:bg-gray-50 transition duration-200">
+                    Cancel
+                </button>
+                <button type="button" onclick="addContentService.saveNewQuiz()"
+                    class="bg-gradient-to-r from-green-500 to-green-600 text-white px-6 py-3 rounded-lg font-semibold hover:shadow-lg transform hover:scale-105 transition duration-200 hover:from-green-600 hover:to-green-700">
+                    Save
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Quiz Modal -->
+    <div id="editQuizModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <div class="bg-white rounded-2xl shadow-xl p-8 max-w-2xl w-full mx-4 max-h-[90vh] overflow-y-auto">
+            <h2 class="text-2xl font-bold text-gray-900 mb-4">Edit Quiz</h2>
+            <div class="mb-6">
+                <label for="editModalQuizName" class="block text-sm font-semibold text-gray-900 my-3">Quiz Name</label>
+                <input type="text" id="editModalQuizName"
+                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-600 focus:border-transparent"
+                    placeholder="Enter quiz name">
+
+                <div id="editQuestionsContainer"></div>
+
+                <button type="button" onclick="addContentService.addEditQuestion()"
+                    class="mt-4 w-full bg-gradient-to-r from-blue-500 to-purple-600 text-white px-4 py-2 rounded-lg font-semibold hover:shadow-lg transition duration-200">
+                    + Add New Question
+                </button>
+            </div>
+            <div class="flex gap-4 justify-end">
+                <button type="button" onclick="addContentService.closeEditQuizModal()"
+                    class="px-6 py-3 border border-gray-300 rounded-lg font-semibold text-gray-700 hover:bg-gray-50 transition duration-200">
+                    Cancel
+                </button>
+                <button type="button" onclick="addContentService.updateQuiz()"
+                    class="bg-gradient-to-r from-green-500 to-green-600 text-white px-6 py-3 rounded-lg font-semibold hover:shadow-lg transform hover:scale-105 transition duration-200 hover:from-green-600 hover:to-green-700">
+                    Save
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript for interactivity -->
+    <script>
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="../js/userService.js"></script>
+    <script src="../js/addContentService.js"></script>
+    <script>
+        userService.init();
+        addContentService.init();
+    </script>
+</body>
+
+</html>
